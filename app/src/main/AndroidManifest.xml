@@ -12,8 +12,9 @@
         android:theme="@style/Theme.TaskWebSkitters"
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config">
-
-        <activity android:name=".view.activities.MainActivity">
+        <activity android:name=".view.activities.MainActivity"/>
+        <activity android:name=".view.activities.IntroActivity"/>
+        <activity android:name=".view.activities.SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

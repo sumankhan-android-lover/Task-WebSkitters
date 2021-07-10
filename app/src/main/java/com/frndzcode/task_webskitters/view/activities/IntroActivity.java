@@ -1,66 +1,47 @@
-package com.frndzcode.task_webskitters.view.fragments;
+package com.frndzcode.task_webskitters.view.activities;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.viewpager2.widget.ViewPager2;
-
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.frndzcode.task_webskitters.MyApplication;
 import com.frndzcode.task_webskitters.R;
-import com.frndzcode.task_webskitters.databinding.FragmentIntroBinding;
+import com.frndzcode.task_webskitters.databinding.ActivityIntroBinding;
 import com.frndzcode.task_webskitters.model.IntroModel;
 import com.frndzcode.task_webskitters.view.adapters.IntroPagerAdapter;
 
 import java.util.ArrayList;
 
-public class IntroFragment extends Fragment {
-    private AppCompatActivity activity;
-    private FragmentIntroBinding binding;
+public class IntroActivity extends AppCompatActivity {
+    private ActivityIntroBinding binding;
+    private IntroActivity activity;
+    private SharedPreferences appPrefs;
     private ArrayList<IntroModel> introList;
     private IntroPagerAdapter adapter;
-    private NavController navController;
-    private SharedPreferences appPrefs;
-
-    public IntroFragment() {
-        // Required empty public constructor
-    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        binding = FragmentIntroBinding.inflate(inflater,container,false);
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        bindView(view);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityIntroBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        activity = this;
+        bindActivity();
         setIntroData();
         setUpIndicator();
         initListener();
     }
 
-    private void bindView(View view) {
-        activity = (AppCompatActivity) getActivity();
-        appPrefs = ((MyApplication) activity.getApplicationContext()).getAppPrefs();
-
+    private void bindActivity() {
+        appPrefs = ((MyApplication) getApplicationContext()).getAppPrefs();
         introList = new ArrayList<>();
-        navController = Navigation.findNavController(view);
     }
 
     private void setIntroData() {
@@ -102,6 +83,7 @@ public class IntroFragment extends Fragment {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private void setUpCurrentIndicator(int index){
         if (index == adapter.getItemCount() -1){
             binding.next.setText("Finish");
@@ -138,9 +120,10 @@ public class IntroFragment extends Fragment {
                 binding.viewpager.setCurrentItem(binding.viewpager.getCurrentItem()+1);
             }else {
                 appPrefs.edit().putBoolean("intro_status",true).apply();
-                //navController.navigate(R.id.action_introFragment_to_homeFragment);
+                Intent intent = new Intent(activity,MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
-
 }

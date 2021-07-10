@@ -51,9 +51,9 @@ public class SplashFragment extends Fragment {
             @Override
             public void run() {
                 if (appPrefs.getBoolean("intro_status",false)){
-                    navController.navigate(R.id.action_splashFragment_to_homeFragment);
+                    //navController.navigate(R.id.action_splashFragment_to_homeFragment);
                 }else {
-                    navController.navigate(R.id.action_splashFragment_to_introFragment);
+                    //navController.navigate(R.id.action_splashFragment_to_introFragment);
                 }
             }
         },1500);
