@@ -40,7 +40,7 @@
     </fragment>-->
 <!--    <fragment
         android:id="@+id/mainFragment"
-        android:name="com.frndzcode.task_webskitters.view.fragments.MainFragment"
+        android:name="com.frndzcode.task_webskitters.view.fragments.AddUserFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />-->
     <fragment
@@ -52,10 +52,19 @@
         android:id="@+id/userFragment"
         android:name="com.frndzcode.task_webskitters.view.fragments.UserFragment"
         android:label="User"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/fragment_user" >
+        <action
+            android:id="@+id/action_userFragment_to_addUserFragment"
+            app:destination="@id/addUserFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.frndzcode.task_webskitters.view.fragments.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/addUserFragment"
+        android:name="com.frndzcode.task_webskitters.view.fragments.AddUserFragment"
+        android:label="fragment_add_user"
+        tools:layout="@layout/fragment_add_user" />
 </navigation>

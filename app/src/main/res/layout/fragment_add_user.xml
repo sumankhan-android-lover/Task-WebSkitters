@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragments.AddUserFragment">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="60dp"
+        android:src="@drawable/person"
+        app:civ_border_color="@color/card_blue"
+        app:civ_border_width="2dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/editPhoto"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_edit"
+        android:background="@drawable/shape_indicator_active"
+        android:backgroundTint="@color/teal_200"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="@id/profile"
+        app:layout_constraintBottom_toBottomOf="@+id/profile"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toBottomOf="@id/profile"
+        android:layout_marginTop="40dp"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        android:layout_marginTop="8dp"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:hint="Phone"
+        android:inputType="number"
+        android:maxLength="10"
+        app:layout_constraintTop_toBottomOf="@id/email"
+        android:layout_marginTop="8dp"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:hint="Address"
+        android:inputType="textCapWords"
+        android:maxLength="10"
+        app:layout_constraintTop_toBottomOf="@id/phone"
+        android:layout_marginTop="8dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/submit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/address"
+        android:layout_marginTop="40dp"
+        android:background="@color/teal_200"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat"
+        android:textAllCaps="false"
+        app:layout_constraintWidth_percent="0.7"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -69,15 +69,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        checkLocationPermission();
-        //binding.mapView.onResume();
-//        mapFragment = (SupportMapFragment) activity.getSupportFragmentManager().findFragmentById(R.id.mapView);
-//        if (mapFragment != null) {
-//            LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-//            if (locationManager != null && mapFragment.getMap() != null) {
-//                locationMap.getMap().setMyLocationEnabled(true);
-//            }
-//        }
+        checkLocationPermission(); //check permission
         bindView();
 
 

@@ -1,5 +1,6 @@
 package com.frndzcode.task_webskitters.view.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,8 +11,9 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.frndzcode.task_webskitters.R;
 import com.frndzcode.task_webskitters.databinding.ActivityMainBinding;
+import com.frndzcode.task_webskitters.view.interfaces.ImageCapturedListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ImageCapturedListener {
     private ActivityMainBinding binding;
     private NavHostFragment hostFragment;
     private NavController navController;
@@ -31,9 +33,16 @@ public class MainActivity extends AppCompatActivity {
         hostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
         navController = hostFragment.getNavController();
 
-        //appBarConfiguration = new AppBarConfiguration.Builder(R.id.homeFragment,R.id.mapFragment,R.id.userFragment).build();
-       // appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        //NavigationUI.setupWithNavController(binding.toolbar,navController,appBarConfiguration);
         NavigationUI.setupWithNavController(binding.bottomNavigation,navController);
+    }
+
+    @Override
+    public void imageCaptured(Uri fileUri) {
+
+    }
+
+    @Override
+    public void imageProcessed(String base64Image) {
+
     }
 }
