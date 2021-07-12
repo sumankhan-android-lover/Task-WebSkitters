@@ -79,6 +79,5 @@ public class UserFragment extends Fragment {
     public void OnUpdateUser(UserModel model) {
         NavDirections action = UserFragmentDirections.actionUserFragmentToAddUserFragment();
         navController.navigate(action);
-        //navController.navigate(R.id.action_userFragment_to_addUserFragment);
     }
 }
