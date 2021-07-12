@@ -1,6 +1,8 @@
 package com.frndzcode.task_webskitters.view.fragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +22,17 @@ import com.frndzcode.task_webskitters.viewModel.HomeViewModel;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment /*implements InterfaceItemSelection */{
+public class HomeFragment extends Fragment /*implements InterfaceItemSelection */ {
 
     private static final String TAG = HomeFragment.class.getSimpleName();
     private FragmentHomeBinding binding;
     private AppCompatActivity activity;
     private HomeViewModel viewModel;
     private HomeAdapter entriesAdapter;
+    private ArrayList<HomeModel> itemList = new ArrayList<>();
+    private ArrayList<HomeModel> filterList = new ArrayList<>();
     private ArrayList<HomeModel> selectionList = new ArrayList<>();
+    private int selectionSize = 0;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -37,7 +42,7 @@ public class HomeFragment extends Fragment /*implements InterfaceItemSelection *
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(inflater,container,false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -46,43 +51,82 @@ public class HomeFragment extends Fragment /*implements InterfaceItemSelection *
         super.onViewCreated(view, savedInstanceState);
         bindView(view);
         initListener();
-        countSelectionData();
     }
 
     private void bindView(View view) {
         activity = (AppCompatActivity) getActivity();
-        if (activity!=null) {
-            viewModel =new ViewModelProvider(activity).get(HomeViewModel.class);
-            viewModel.getEntriesMutableLiveData().observe(activity,this::setDataOnRecyclerView);
+        activity.setSupportActionBar(binding.toolbar);
+        Log.e(TAG, "bindView: size 1" + selectionSize);
+
+        if (activity != null) {
+            viewModel = new ViewModelProvider(activity).get(HomeViewModel.class);
+            viewModel.getEntriesMutableLiveData().observe(activity, this::setDataOnRecyclerView);
         }
         selectionList = new ArrayList<>();
 
     }
 
     private void setDataOnRecyclerView(ArrayList<HomeModel> homeModels) {
+        itemList.addAll(homeModels);
+        filterList.addAll(itemList);
         binding.recycler.setLayoutManager(new LinearLayoutManager(activity));
-        binding.recycler.hasFixedSize();
-        entriesAdapter = new HomeAdapter(homeModels, activity, HomeFragment.this);
+        binding.recycler.setHasFixedSize(true);
+        entriesAdapter = new HomeAdapter(filterList, activity, HomeFragment.this);
         binding.recycler.setAdapter(entriesAdapter);
     }
 
     private void initListener() {
+        binding.search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterProduct(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
-    private void countSelectionData() {
-//        selectionList.clear();
-//        if (selectionList.size()>0)
-//            selectionList = entriesAdapter.getSelectedItem();
-//        Log.e(TAG, "bindView: selection count 1"+ selectionList.size());
+    private void filterProduct(String data) {
+        if (data.length() > 1 && !data.trim().equals("")) {
+            filterList.clear();
+            for (int i = 0; i < itemList.size(); i++) {
+                HomeModel model = itemList.get(i);
+                if (model.getTitle().toLowerCase().contains(data.toLowerCase())) {
+                    filterList.add(model);
+                }
+            }
+
+            if (filterList.size() == 0)
+                showNoData();
+
+            entriesAdapter.notifyDataSetChanged();
+        } else {
+            filterList.clear();
+            filterList.addAll(itemList);
+            entriesAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void showNoData() {
+
     }
 
     public void clickItem(int size) {
-        Log.e(TAG, "bindView: selection count 1"+ size);
+        Log.e(TAG, "bindView: selection count 1" + size);
+        if (size > 0) {
+            activity.getSupportActionBar().setTitle(String.valueOf(size));
+        } else {
+            activity.getSupportActionBar().setTitle(String.valueOf(0));
+        }
+
     }
-//
-//    @Override
-//    public void onItemSelected(HomeModel item) {
-//        selectionList = entriesAdapter.getSelectedItem();
-//    }
+
 }

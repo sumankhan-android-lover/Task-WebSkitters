@@ -43,7 +43,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         HomeModel model = entriesList.get(position);
-        //Log.e(TAG, "onBindViewHolder: size "+entriesList.size() );
         setUpEntries(model,(HomeAdapter.EntriesViewHolder)holder);
     }
 
@@ -92,7 +91,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     selectView(holder);
                 }
                 ((HomeFragment)fragment).clickItem(selectionList.size());
-                //itemSelection.onItemSelected(model);
             }
         });
 
@@ -109,14 +107,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
     public ArrayList<HomeModel> getSelectedItem() {
-//        ArrayList<HomeModel> list = new ArrayList<>();
-//
-//        for (HomeModel model : selectionList) {
-//            if (model.getCount()>0) {
-//                list.add(model);
-//            }
-//        }
-//        selectionList.addAll(list);
         return selectionList;
     }
 
